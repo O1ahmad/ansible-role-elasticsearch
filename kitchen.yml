@@ -39,9 +39,6 @@ platforms:
   - name: fedora-28
     driver_config:
       <<: *default_driver_config
-  - name: fedora-29
-    driver_config:
-      <<: *default_driver_config
   - name: fedora-30
     driver_config:
       <<: *default_driver_config
@@ -114,3 +111,9 @@ suites:
     verifier:
       inspec_tests:
         - path: test/integration/config/elasticsearch_config
+  - name: jvm_options
+    provisioner:
+      playbook: test/integration/config/jvm_options/default_playbook.yml
+    verifier:
+      inspec_tests:
+        - path: test/integration/config/jvm_options

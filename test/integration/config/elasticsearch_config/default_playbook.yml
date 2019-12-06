@@ -5,6 +5,7 @@
     - ansible-role-elasticsearch
   vars:
     install_type: archive
+    managed_configs: ['elasticsearch_config']
     config:
       node.name: "${HOSTNAME}"
       cluster.name: test-cluster

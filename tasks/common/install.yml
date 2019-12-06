@@ -13,7 +13,7 @@
     name: "{{ elasticsearch_user }}"
     group: "{{ elasticsearch_user }}"
     create_home: "no"
-    become: true
+  become: true
 
 #######  Source installation #######
 
