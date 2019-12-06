@@ -1,8 +1,8 @@
-Ansible Role <Role>
+Ansible Role :mag_right: :high_brightness: Elasticsearch
 =========
-[![Galaxy Role](*role-shield-link*)](--role-link--)
-[![Downloads](*downloads-shield-link*)](--role-link--)
-[![Build Status](*build-shield-link*)](--role-link--)
+[![Galaxy Role](https://img.shields.io/ansible/role/45171.svg)](https://galaxy.ansible.com/0x0I/elasticsearch)
+[![Downloads](https://img.shields.io/ansible/role/d/45171.svg)](https://galaxy.ansible.com/0x0I/elasticsearch)
+[![Build Status](https://travis-ci.org/0x0I/ansible-role-elasticsearch.svg?branch=master)](https://travis-ci.org/0x0I/ansible-role-elasticsearch)
 
 **Table of Contents**
   - [Supported Platforms](#supported-platforms)
@@ -17,12 +17,11 @@ Ansible Role <Role>
   - [License](#license)
   - [Author Information](#author-information)
 
-...*description of role*...
+Ansible role that installs and configures Elasticsearch, a real-time distributed search and analytics engine.
 
 ##### Supported Platforms:
 ```
 * Debian
-* MacOS
 * Redhat(CentOS/Fedora)
 * Ubuntu
 ```

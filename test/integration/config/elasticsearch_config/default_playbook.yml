@@ -1,0 +1,13 @@
+---
+- name: Default playbook for testing
+  hosts: test-kitchen
+  roles:
+    - ansible-role-elasticsearch
+  vars:
+    install_type: archive
+    config:
+      node.name: "${HOSTNAME}"
+      cluster.name: test-cluster
+      path.data: /mnt/data/elasticsearch
+      path:
+        logs: /mnt/logs/elasticsearch

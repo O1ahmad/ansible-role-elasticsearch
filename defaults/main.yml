@@ -10,8 +10,8 @@ archive_url: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-
 archive_checksum: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.5.0-linux-x86_64.tar.gz.sha512
 
 default_config_dir: "{{ install_dir }}/config"
-default_data_dir: "{{ install_dir }}/data"
-default_log_dir: "{{ install_dir }}/logs"
+default_data_dir: "/var/data/elasticsearch"
+default_log_dir: "/var/logs/elasticsearch"
 
 elasticsearch_config: elasticsearch.yml
 config: {}
