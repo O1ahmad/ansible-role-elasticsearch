@@ -1,0 +1,28 @@
+---
+- name: Setup elasticsearch systemd unit
+  include_role:
+    name: 0x0i.systemd
+  vars:
+    unit_config:
+      - name: elasticsearch
+        Unit:
+          Description: Elasticsearch
+          Documentation: http://www.elastic.co
+          Wants: network-online.target
+          After: network-online.target
+        Service:
+          ExecStart: "{{ install_dir }}/bin/elasticsearch {{ extra_run_args|join(' ') }}"
+          WorkingDirectory: "{{ install_dir }}"
+          User: "{{ elasticsearch_user }}"
+          Group: "{{ elasticsearch_user }}"
+          StandardOutput: journal
+          StandardError: inherit
+        Install:
+          WantedBy: multi-user.target
+  when: install_type == 'archive'
+
+- name: Ensure start of elasticsearch service
+  service:
+    name: elasticsearch
+    state: started
+    enabled: "yes"

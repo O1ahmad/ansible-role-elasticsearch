@@ -8,7 +8,7 @@
   loop:
     - "{{ config_dir|default(default_config_dir) }}"
     - "{{ config['path.data']|default(config.path.data)|default(default_data_dir) }}"
-    - "{{ config.path.logs|default(config['path.logs'])|default(default_log_dir) }}"
+    - "{{ config['path.logs']|default(config.path.logs)|default(default_log_dir) }}"
   become: true
 
 - name: Copy elasticsearch.yml configuration in place

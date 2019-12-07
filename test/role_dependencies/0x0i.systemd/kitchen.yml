@@ -28,7 +28,6 @@ provisioner:
   require_ruby_for_busser: false
   ansible_verbosity: 2
   ansible_verbose: true
-  requirements_path: requirements-test.yml
 
 verifier:
   name: inspec
@@ -94,39 +93,9 @@ platforms:
         - systemctl enable ssh.service
 
 suites:
-  - name: archive_install
+  - name: unit_config
     provisioner:
-      playbook: test/integration/install/archive_install/default_playbook.yml
+      playbook: test/integration/unit_config/default_playbook.yml
     verifier:
       inspec_tests:
-        - path: test/integration/install/archive_install
-  - name: package_install
-    provisioner:
-      playbook: test/integration/install/package_install/default_playbook.yml
-    verifier:
-      inspec_tests:
-        - path: test/integration/install/package_install
-  - name: elasticsearch_config
-    provisioner:
-      playbook: test/integration/config/elasticsearch_config/default_playbook.yml
-    verifier:
-      inspec_tests:
-        - path: test/integration/config/elasticsearch_config
-  - name: jvm_options
-    provisioner:
-      playbook: test/integration/config/jvm_options/default_playbook.yml
-    verifier:
-      inspec_tests:
-        - path: test/integration/config/jvm_options
-  - name: log4j2_properties
-    provisioner:
-      playbook: test/integration/config/log4j2_properties/default_playbook.yml
-    verifier:
-      inspec_tests:
-        - path: test/integration/config/log4j2_properties
-  - name: service_launch
-    provisioner:
-      playbook: test/integration/launch/service_launch/default_playbook.yml
-    verifier:
-      inspec_tests:
-        - path: test/integration/launch/service_launch
+        - path: test/integration/unit_config
