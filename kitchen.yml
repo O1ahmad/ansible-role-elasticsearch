@@ -28,7 +28,7 @@ provisioner:
   require_ruby_for_busser: false
   ansible_verbosity: 2
   ansible_verbose: true
-  requirements_path: requirements-test.yml
+  requirements_path: test/requirements-test.yml
 
 verifier:
   name: inspec
