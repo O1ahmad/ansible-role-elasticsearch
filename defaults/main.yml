@@ -3,7 +3,7 @@
 elasticsearch_user: elasticsearch
 
 install_type: archive
-install_dir: /opt/elasticsearch
+default_install_dir: /opt/elasticsearch
 checksum_format: sha512
 
 managed_configs: ['elasticsearch_config', 'jvm_options', 'log4j_properties']
@@ -21,8 +21,8 @@ config: {}
 jvm_options_config: jvm.options
 jvm_options: []
 
-log4j_properties_config: log4j.properties
-log4j_properties: []
+log4j2_properties_config: log4j2.properties
+log4j2_properties: []
 
 extra_run_args: []
 

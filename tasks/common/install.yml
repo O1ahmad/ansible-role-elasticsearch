@@ -17,6 +17,10 @@
 
 #######  Source installation #######
 
+- name: Determine installation directory
+  set_fact:
+    install_dir: "{{ '/usr/share/elasticsearch' if install_type == 'package' else default_install_dir }}"
+
 - name: Create installation directory
   file:
     path: "{{ install_dir }}"
