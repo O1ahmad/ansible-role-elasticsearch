@@ -1,26 +1,7 @@
 ---
-- name: Copy elasticsearch.yml configuration in place
-  template:
-    src: "{{ elasticsearch_config }}.j2"
-    dest: "{{ config_dir|default(default_config_dir) }}/{{ elasticsearch_config }}"
-    owner: "{{ elasticsearch_user }}"
-    group: "{{ elasticsearch_user }}"
-    mode: 0644
-  vars:
-    conf: "{{ config }}"
-  become: true
-  when: config is defined and config is not none
-
-- debug:
-    var: config
-
-- name: Ensure existence of Elasticsearch auxiliary(data and logging) directories
-  file:
-    path: "{{ item }}"
-    state: directory
-    owner: "{{ elasticsearch_user }}"
-    group: "{{ elasticsearch_user }}"
-  loop:
-    - "{{ config['path.data']|default(config.path.data)|default(default_data_dir) }}"
-    - "{{ config.path.logs|default(config['path.logs'])|default(default_log_dir) }}"
-  become: true
+- name: determine configuration directory
+  set_fact:
+    config_dir: "{{ '/etc/elasticsearch' if install_type == 'package' else install_dir + '/config' }}"
+- name: Include designated managed configuration tasks
+  include_tasks: "common/config/{{ item }}.yml"
+  with_items: "{{ managed_configs }}"
