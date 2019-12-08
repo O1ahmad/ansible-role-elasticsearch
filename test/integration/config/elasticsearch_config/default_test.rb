@@ -11,6 +11,7 @@ describe file('/opt/elasticsearch/config/elasticsearch.yml') do
   its('content') { should match("path:") }
   its('content') { should match("logs:") }
 end
+
 describe directory('/mnt/logs/elasticsearch') do
   it { should exist }
   its('owner') { should eq 'elasticsearch' }
