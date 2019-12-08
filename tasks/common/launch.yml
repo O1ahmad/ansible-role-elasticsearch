@@ -10,13 +10,7 @@
           Documentation: http://www.elastic.co
           Wants: network-online.target
           After: network-online.target
-        Service:
-          ExecStart: "{{ install_dir }}/bin/elasticsearch {{ extra_run_args|join(' ') }}"
-          WorkingDirectory: "{{ install_dir }}"
-          User: "{{ elasticsearch_user }}"
-          Group: "{{ elasticsearch_user }}"
-          StandardOutput: journal
-          StandardError: inherit
+        Service: "{{ default_service_unit | combine(custom_unit_properties) }}"
         Install:
           WantedBy: multi-user.target
   when: install_type == 'archive'

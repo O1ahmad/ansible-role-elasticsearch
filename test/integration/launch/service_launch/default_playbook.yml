@@ -23,3 +23,5 @@
             logger.action.level: debug
     extra_run_args:
       - '--verbose'
+    custom_unit_properties:
+      Environment: "ES_HOME={{ install_dir }}"
