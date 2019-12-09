@@ -11,7 +11,7 @@ managed_configs: ['elasticsearch_config', 'jvm_options', 'log4j_properties']
 archive_url: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.5.0-linux-x86_64.tar.gz
 archive_checksum: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.5.0-linux-x86_64.tar.gz.sha512
 
-default_config_dir: "{{ install_dir }}/config"
+default_config_dir: "{{ default_install_dir }}/config"
 default_data_dir: "/var/data/elasticsearch"
 default_log_dir: "/var/logs/elasticsearch"
 
@@ -29,10 +29,3 @@ extra_run_args: []
 perform_uninstall: false
 
 custom_unit_properties: {}
-default_service_unit:
-  ExecStart: "{{ install_dir }}/bin/elasticsearch {{ extra_run_args|join(' ') }}"
-  WorkingDirectory: "{{ install_dir }}"
-  User: "{{ elasticsearch_user }}"
-  Group: "{{ elasticsearch_user }}"
-  StandardOutput: journal
-  StandardError: inherit
