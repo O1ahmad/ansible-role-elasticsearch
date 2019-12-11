@@ -44,7 +44,7 @@ Variables are available and organized according to the following software & mach
 _The following variables can be customized to control various aspects of this installation process, ranging from software version and source location of binaries to the installation directory where they are stored:_
 
 `install_type: <package | archive>` (**default**: archive)
-- **package**: supported by Debian and Redhat distributions, package installation of Elasticsearch pulls the specified package available from the respective package management repositories.
+- **package**: supported by Debian and Redhat distributions, package installation of Elasticsearch pulls the specified package from the respective package management repository.
   - Note that the installation directory is determined by the package management system and currently defaults to `/usr/share` for both distros. Attempts to set and execute a package installation on other Linux distros will result in failure due to lack of support.
 - **archive**: compatible with both **tar and zip** formats, archived installation binaries can be obtained from local and remote compressed archives either from the official [download/releases](https://www.elastic.co/downloads/elasticsearch) site or those generated from development/custom sources.
 
@@ -73,7 +73,7 @@ Configuration of `elasticsearch` is expressed within 3 files:
 - `jvm.options` for configuring Elasticsearch JVM settings
 - `log4j2.properties` for configuring Elasticsearch logging
 
-These files are located in the config directory; which as previously mentioned, the location depends on whether or not the installation is from an archive distribution (tar.gz or zip) or a package distribution (Debian or RPM packages).
+These files are located in the config directory, which as previously mentioned, depends on whether or not the installation is from an archive distribution (tar.gz or zip) or a package distribution (Debian or RPM packages).
 
 For additional details and to get an idea how each config should look, reference Elastic's official [configuration](https://www.elastic.co/guide/en/elasticsearch/reference/current/settings.html) documentation.
 
@@ -92,9 +92,9 @@ _The following variables can be customized to manage the location and content of
 
 `config: <hash-of-elasticsearch-settings>` **default**: {}
 
-- The configuration files should contain settings which are node-specific (such as node.name and paths), or settings which a node requires in order to be able to join a cluster. Any configuration setting/value key-pair supported by `elasticsearch` should be expressible within the hash and properly rendered within the associated YAML config.
+- The configuration file should contain settings which are node-specific (such as *node.name* and *paths*), or settings which a node requires in order to be able to join a cluster.
 
-Values can be expressed in typical _yaml/ansible_ form (e.g. Strings, numbers and true/false values should be written as is and without quotes).
+Any configuration setting/value key-pair supported by `elasticsearch` should be expressible within the hash and properly rendered within the associated YAML config. Values can be expressed in typical _yaml/ansible_ form (e.g. Strings, numbers and true/false values should be written as is and without quotes).
 
   Keys of the `config` hash can be either nested or delimited by a '.':
   ```yaml
@@ -110,7 +110,7 @@ A list of configurable settings can be found [here](https://github.com/elastic/e
 
 - The preferred method of setting JVM options (including system properties and JVM flags) is via the *jvm.options* configuration file. The file consists of a line-delimited list of arguments used to modify the behavior of Elasticsearch's JVM.
 
-While you should rarely need to change Java Virtual Machine (JVM) options; there are situations (e.g.insufficient heap size allocation) in which adjustments may be necessary. Each line to be rendered in the file can be expressed as an entry within the list of dicts, contained within `jvm_options`, consisting of a hash composed of an *optional* `comment` field and list of associated arguments to configure:
+While you should rarely need to change Java Virtual Machine (JVM) options; there are situations (e.g.insufficient heap size allocation) in which adjustments may be necessary. Each line to be rendered in the file can be expressed as an entry within a list of dicts, contained within `jvm_options`, consisting of a hash composed of an *optional* `comment` field and list of associated arguments to configure:
 
   ```yaml
   jvm_options:
@@ -128,7 +128,7 @@ While you should rarely need to change Java Virtual Machine (JVM) options; there
 
 3 properties `${sys:es.logs.base_path}`, `${sys:es.logs.cluster_name}`, and `${sys:es.logs.node_name}` are exposed by Elasticsearch and can be referenced in the configuration file to determine the location of this log file and potentially others. The property **${sys:es.logs.base_path}** will resolve to the log directory, **${sys:es.logs.cluster_name}** will resolve to the cluster name *(used as the prefix of log filenames in the default configuration)*, and **${sys:es.logs.node_name}** will resolve to the node name *(if the node name is explicitly set)*.
 
-Each line to be rendered in the file can be expressed as entry within a list of dicts, contained within `log4j_properties`, consisting of a hash containing an *optional* `comment` field and list of associated key-value pairs:
+Each line to be rendered in the file can be expressed as an entry within a list of dicts, contained within `log4j_properties`, consisting of a hash containing an *optional* `comment` field and list of associated key-value pairs:
 
   ```yaml
   log4j2_properties:
@@ -153,10 +153,10 @@ Running the `elasticsearch` search and analytics service along with its API serv
 _The following variables can be customized to manage the service's **systemd** service unit definition and execution profile/policy:_
 
 `extra_run_args: <elasticsearch-cli-options>` (**default**: `[]`)
-- list of `elasticsearch` commandline arguments to pass to the binary at runtime for customizing launch. Supporting full expression of `elasticsearch`'s cli, this variable enables the role of target hosts to be customized according to the user's specification.
+- list of `elasticsearch` commandline arguments to pass to the binary at runtime for customizing launch. Supporting full expression of `elasticsearch`'s cli, this variable enables the launch to be customized according to the user's specification.
 
 `custom_unit_properties: <hash-of-systemd-service-settings>` (**default**: `[]`)
-- hash of settings used to customize the [Service] configuration and execution environment of the Elasticsearch **systemd** service.
+- hash of settings used to customize the [Service] unit configuration and execution environment of the Elasticsearch **systemd** service.
 
 ```yaml
 custom_unit_properties:
@@ -180,7 +180,7 @@ default example:
   - role: 0xOI.elasticsearch
 ```
 
-install specific version of OS distribution native package:
+install specific version of OS distribution native package with pre-defined defaults:
 ```
 - hosts: legacy-ES-cluster
   roles:
@@ -190,20 +190,21 @@ install specific version of OS distribution native package:
         install_type: package
         package_url: https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/rpm/elasticsearch/2.0.0/elasticsearch-2.0.0.rpm
         package_checksum: https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/rpm/elasticsearch/2.0.0/elasticsearch-2.0.0.rpm.sha1
+        checksum_format: sha1
 ```
 
 provision hybrid master/data node with customized data and logging directories:
 ```
-- hosts: elasticsearch
+- hosts: test-elasticsearch
   roles:
     - role: 0xOI.elasticsearch
       vars:
         managed_configs: ['elasticsearch_config']
         config:
           cluster.name: example-cluster
+          node.master: true
+          node.data: true
           path:
-            node.master: true
-            node.data: true
             data: /mnt/data/elasticsearch
             logs: /mnt/logs/elasticsearch
 ```
