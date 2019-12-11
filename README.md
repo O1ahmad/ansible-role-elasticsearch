@@ -120,6 +120,8 @@ While you should rarely need to change Java Virtual Machine (JVM) options; there
           - '-Xmx1g'
   ```
   
+  A list of available arguments can be found [here](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html).
+  
 `log4j_properties: <list-of-dicts>` **default**: `[]`
 
 - The preferred method of setting JVM options (including system properties and JVM flags) is via the jvm.options configuration file. The file consists of a line-delimited list of arguments used to modify the behavior of Elasticsearch's JVM.
