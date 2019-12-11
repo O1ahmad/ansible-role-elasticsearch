@@ -180,6 +180,58 @@ default example:
   - role: 0xOI.elasticsearch
 ```
 
+install specific version of OS distribution native package:
+```
+- hosts: legacy-ES-cluster
+  roles:
+  - role: 0xOI.elasticsearch
+    vars:
+        managed_configs: []
+        install_type: package
+        package_url: https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/rpm/elasticsearch/2.0.0/elasticsearch-2.0.0.rpm
+        package_checksum: https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/rpm/elasticsearch/2.0.0/elasticsearch-2.0.0.rpm.sha1
+```
+
+provision hybrid master/data node with customized data and logging directories:
+```
+- hosts: elasticsearch
+  roles:
+    - role: 0xOI.elasticsearch
+      vars:
+        managed_configs: ['elasticsearch_config']
+        config:
+          cluster.name: example-cluster
+          path:
+            node.master: true
+            node.data: true
+            data: /mnt/data/elasticsearch
+            logs: /mnt/logs/elasticsearch
+```
+
+enable verbose logging for cluster debugging/troubleshooting:
+```
+- hosts: elasticsearch
+  roles:
+    - role: 0xOI.elasticsearch
+      vars:
+        managed_configs: ['jvm_options', 'log4j2_properties']
+        jvm_options:
+          - comment: adjust the min and max JVM heap size to handle increased output
+            arguments:
+              - '-Xms16g'
+              - '-Xmx16g'
+        log4j2_properties:
+          - comment: log action execution errors for easier debugging
+            settings:
+              - logger.action.name: org.elasticsearch.action
+                logger.action.level: debug
+        extra_run_args:
+          - '--verbose'
+        custom_unit_properties:
+          StandardOutput: journal
+          StandardError: inherit
+```
+
 License
 -------
 
