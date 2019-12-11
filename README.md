@@ -59,7 +59,7 @@ _The following variables can be customized to control various aspects of this in
 - address of a checksum file for verifying the data integrity of the specified archive. While recommended and generally considered a best practice, specifying a checksum is *not required* and can be disabled by providing an empty string (`''`) for its value. *ONLY* relevant when `install_type` is set to **archive**.
 
 `package_url: <path-or-url-to-package>` (**default**: see `defaults/main.yml`)
-- address of a **DEB or RPM** package containing `elasticsearch` source and binaries. Note that the installation layout is determined by the package management systems. Consult Elastic's official documentation for both [RPM](https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html) and [Debian](https://www.elastic.co/guide/en/elasticsearch/reference/current/deb.html) installation details. *ONLY* relevant when `install_type` is set to **package**
+- address of a **Debian or RPM** package containing `elasticsearch` source and binaries. Note that the installation layout is determined by the package management systems. Consult Elastic's official documentation for both [RPM](https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html) and [Debian](https://www.elastic.co/guide/en/elasticsearch/reference/current/deb.html) installation details. *ONLY* relevant when `install_type` is set to **package**
 
 `package_checksum: <path-or-url-to-checksum>` (**default**: see `vars/...`)
 - address of a checksum file for verifying the data integrity of the specified package. While recommended and generally considered a best practice, specifying a checksum is *not required* and can be disabled by providing an empty string (`''`) for its value. *ONLY* relevant when `install_type` is set to **package**.
@@ -69,7 +69,33 @@ _The following variables can be customized to control various aspects of this in
 
 #### Config
 
-...*description of configuration related vars*...
+Configuration of `elasticsearch` is expressed within 3 files:
+- `elasticsearch.yml` for configuring Elasticsearch
+- `jvm.options` for configuring Elasticsearch JVM settings
+- `log4j2.properties` for configuring Elasticsearch logging
+
+These files are located in the config directory; which as previously mentioned, the location depends on whether or not the installation is from an archive distribution (tar.gz or zip) or a package distribution (Debian or RPM packages).
+
+For additional details and to get an idea how each config should look, reference Elastic's official [configuration](https://www.elastic.co/guide/en/elasticsearch/reference/current/settings.html) documentation.
+
+_The following variables can be customized to manage the location and content of these configuration files:_
+
+`default_config_dir: </path/to/configuration/dir>` (**default**: `/etc/geth`)
+- path on target host where the aforementioned configuration files should be stored
+
+`config: <hash-of-elasticsearch-settings>` **default**: see `defaults/main.yml`
+
+* Any configuration setting/value key-pair supported by `elasticsearch` should be expressible within the hash and properly rendered within the associated YAML config. Values can be expressed in typical _yaml/ansible_ form (e.g. Strings, numbers and true/false values should be written as is and without quotes).
+
+A list of configurable settings can be found [here](https://gist.github.com/0x0I/5887dae3cdf4620ca670e3b194d82cba).
+
+Keys of the `config` hash can be either nested or delimited by a '.':
+```yaml
+config:
+  node.name: example-node
+  path:
+    logs: /var/log/elasticsearch
+```
 
 #### Launch
 
