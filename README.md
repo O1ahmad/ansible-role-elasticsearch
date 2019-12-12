@@ -148,7 +148,7 @@ Reference Elastic's official [logging](https://www.elastic.co/guide/en/elasticse
 
 #### Launch
 
-Running the `elasticsearch` search and analytics service along with its API server is accomplished utilizing the [systemd](https://www.freedesktop.org/wiki/Software/systemd/) service management tool for both *package* and *archive* installations. Launched as background processes or daemons subject to the configuration and execution potential provided by the underlying management framework, launch of `elsaticsearch` can be set to adhere to system administrative policies right for your environment and organization.
+Running the `elasticsearch` search and analytics service along with its API server is accomplished utilizing the [systemd](https://www.freedesktop.org/wiki/Software/systemd/) service management tool for both *package* and *archive* installations. Launched as background processes or daemons subject to the configuration and execution potential provided by the underlying management framework, launch of `elasticsearch` can be set to adhere to system administrative policies right for your environment and organization.
 
 _The following variables can be customized to manage the service's **systemd** service unit definition and execution profile/policy:_
 
