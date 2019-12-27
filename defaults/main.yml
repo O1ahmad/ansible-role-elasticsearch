@@ -6,7 +6,7 @@ install_type: archive
 default_install_dir: /opt/elasticsearch
 checksum_format: sha512
 
-managed_configs: ['elasticsearch_config', 'jvm_options', 'log4j_properties']
+managed_configs: ['elasticsearch_config', 'jvm_options', 'log4j2_properties']
 
 archive_url: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.5.0-linux-x86_64.tar.gz
 archive_checksum: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.5.0-linux-x86_64.tar.gz.sha512
