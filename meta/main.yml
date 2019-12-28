@@ -3,7 +3,7 @@
 galaxy_info:
   author: Ahmad Wilson
   role_name: elasticsearch
-  description: elasticsearch, a real-time distributed search and analytics engine
+  description: Elasticsearch, a real-time distributed search and analytics engine
   company: "O1.IO"
   license: license (Apache, BSD, MIT)
   min_ansible_version: 2.6
