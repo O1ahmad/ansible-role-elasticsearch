@@ -45,6 +45,9 @@ Variables are available and organized according to the following software & mach
 
 _The following variables can be customized to control various aspects of this installation process, ranging from software version and source location of binaries to the installation directory where they are stored:_
 
+`elasticsearch_user: <service-user-name>` (**default**: *elasticsearch*)
+- dedicated service user and group used by `elasticsearch` for privilege separation (see [here](https://www.beyondtrust.com/blog/entry/how-separation-privilege-improves-security) for details)
+
 `install_type: <package | archive>` (**default**: archive)
 - **package**: supported by Debian and Redhat distributions, package installation of Elasticsearch pulls the specified package from the respective package management repository.
   - Note that the installation directory is determined by the package management system and currently defaults to `/usr/share` for both distros. Attempts to set and execute a package installation on other Linux distros will result in failure due to lack of support.
@@ -66,7 +69,7 @@ _The following variables can be customized to control various aspects of this in
 - address of a checksum file for verifying the data integrity of the specified package. While recommended and generally considered a best practice, specifying a checksum is *not required* and can be disabled by providing an empty string (`''`) for its value. *ONLY* relevant when `install_type` is set to **package**.
 
 `checksum_format: <string>` (**default**: see `sha512`)
-- hash algorithm used for file verification associated with the specified archive or package checksum. Reference [here](https://en.wikipedia.org/wiki/Cryptographic_hash_function) for more information about checksums/cryptographic hashes. 
+- hash algorithm used for file verification associated with the specified archive or package checksum. Reference [here](https://en.wikipedia.org/wiki/Cryptographic_hash_function) for more information about checksums/cryptographic hashes.
 
 #### Config
 
@@ -105,9 +108,9 @@ Any configuration setting/value key-pair supported by `elasticsearch` should be 
     path:
       logs: /var/log/elasticsearch
   ```
-  
+
 A list of configurable settings can be found [here](https://github.com/elastic/elasticsearch/tree/master/docs/reference/modules).
-  
+
 `jvm_options: <list-of-dicts>` **default**: `[]`
 
 - The preferred method of setting JVM options (including system properties and JVM flags) is via the *jvm.options* configuration file. The file consists of a line-delimited list of arguments used to modify the behavior of Elasticsearch's JVM.
@@ -121,9 +124,9 @@ While you should rarely need to change Java Virtual Machine (JVM) options; there
           - '-Xms1g'
           - '-Xmx1g'
   ```
-  
+
   A list of available arguments can be found [here](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html).
-  
+
 `log4j_properties: <list-of-dicts>` **default**: `[]`
 
 - Elasticsearch makes use of the Apache [log4j 2](https://logging.apache.org/log4j/2.x/) logging system for organizing and managing each of its main and sub-component logging facilities. As such, individual settings can be applied on a global or per-component basis by defining configuration settings associated with various aspects of the logging process. By default, log4j 2 loads a `log4j2.properties` file which consists of line-delimited properties expressing a key-value pair representing a desired configuration.
@@ -139,7 +142,7 @@ Each line to be rendered in the file can be expressed as an entry within a list 
           - logger.action.name: org.elasticsearch.action
             logger.action.level: debug
   ```
-  
+
 Reference Elastic's official [logging](https://www.elastic.co/guide/en/elasticsearch/reference/current/logging.html) documentation for more details regarding a list of available configurations and examples of how this configuration should look.
 
 `default_data_dir: </path/to/data/dir>` (**default**: `/var/data/elasticsearch`)

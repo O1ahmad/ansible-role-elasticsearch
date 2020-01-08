@@ -2,18 +2,21 @@
 #######  Authentication setup #######
 
 - name: Ensure Elasticsearch group exists
+  become: true
   group:
     name: "{{ elasticsearch_user }}"
     state: present
-  become: true
+    system: true
 
 - name: Create Elasticsearch user
+  become: true
   user:
     comment: Elasticsearch service account
     name: "{{ elasticsearch_user }}"
     group: "{{ elasticsearch_user }}"
-    create_home: "no"
-  become: true
+    shell: "/sbin/nologin"
+    system: true
+    create_home: false
 
 #######  Source installation #######
 
