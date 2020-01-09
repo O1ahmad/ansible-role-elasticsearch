@@ -1,13 +1,4 @@
 ---
-- name: Set unit [Service] configuration
-  set_fact:
-    default_service_unit:
-      ExecStart: "{{ install_dir }}/bin/elasticsearch {{ extra_run_args|join(' ') }}"
-      User: "{{ elasticsearch_user }}"
-      Group: "{{ elasticsearch_user }}"
-      StandardOutput: journal
-      StandardError: inherit
-
 - name: Setup elasticsearch systemd unit
   include_role:
     name: 0x0i.systemd
@@ -24,7 +15,7 @@
           WantedBy: multi-user.target
   when: install_type == 'archive'
 
-- name: Ensure start of elasticsearch service
+- name: Start Elasticsearch service
   service:
     name: elasticsearch
     state: started

@@ -18,4 +18,4 @@
   vars:
     properties: "{{ log4j2_properties }}"
   become: true
-  when: log4j2_properties is defined and log4j2_properties is not none
+  when: log4j2_properties is defined and log4j2_properties|length > 0

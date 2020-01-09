@@ -16,11 +16,6 @@
         arguments:
           - '-Xms2g'
           - '-Xmx2g'
-    log4j2_properties:
-      - comment: log action execution errors for easier debugging
-        settings:
-          - logger.action.name: org.elasticsearch.action
-            logger.action.level: debug
     extra_run_args:
       - '--verbose'
     custom_unit_properties:

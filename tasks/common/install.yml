@@ -1,6 +1,4 @@
 ---
-#######  Authentication setup #######
-
 - name: Ensure Elasticsearch group exists
   become: true
   group:
@@ -14,15 +12,8 @@
     comment: Elasticsearch service account
     name: "{{ elasticsearch_user }}"
     group: "{{ elasticsearch_user }}"
-    shell: "/sbin/nologin"
     system: true
-    create_home: false
-
-#######  Source installation #######
-
-- name: Determine installation directory
-  set_fact:
-    install_dir: "{{ '/usr/share/elasticsearch' if install_type == 'package' else default_install_dir }}"
+    create_home: true
 
 - name: Create installation directory
   file:
@@ -33,48 +24,5 @@
   become: true
   when: install_type == "archive"
 
-- name: Download Elasticsearch package ({{ package_url }})
-  get_url:
-    url: "{{ package_url }}"
-    dest: "/tmp/{{ package_url | urlsplit('path') | basename }}"
-    checksum: "{{ checksum_format }}:{{ package_checksum }}"
-    owner: "{{ elasticsearch_user }}"
-    group: "{{ elasticsearch_user }}"
-    mode: '0775'
-  register: package_tmp
-  become: true
-  when: install_type == "package"
-
-- name: Download Elasticsearch archive ({{ archive_url }})
-  get_url:
-    url: "{{ archive_url }}"
-    dest: "/tmp/{{ archive_url | urlsplit('path') | basename }}"
-    checksum: "{{ checksum_format }}:{{ archive_checksum }}"
-    owner: "{{ elasticsearch_user }}"
-    group: "{{ elasticsearch_user }}"
-    mode: '0775'
-  register: archive_tmp
-  become: true
-  when: install_type == "archive"
-
-- name: Extract Elasticsearch archive
-  unarchive:
-    src: "{{ archive_tmp.dest }}"
-    dest: "{{ install_dir }}"
-    creates: "{{ install_dir }}/bin"
-    owner: "{{ elasticsearch_user }}"
-    group: "{{ elasticsearch_user }}"
-    mode: '0775'
-    extra_opts:
-      - --strip-components
-      - '1'
-    remote_src: true
-  become: true
-  when: install_type == "archive"
-
-- name: Add installation dir to system-wide $PATH
-  copy:
-    dest: /etc/profile.d/custom-path.sh
-    content: 'PATH=$PATH:{{ install_dir }}/bin'
-  become: true
-  when: install_type == "archive"
+- name: Install Elasticsearch based on install type
+  include_tasks: "common/install/{{ install_type }}_install.yml"
