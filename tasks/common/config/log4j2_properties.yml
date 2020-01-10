@@ -10,8 +10,8 @@
 
 - name: Copy log4j2.properties configuration in place
   template:
-    src: "{{ log4j2_properties_config }}.j2"
-    dest: "{{ config_dir|default(default_config_dir) }}/{{ log4j2_properties_config }}"
+    src: "{{ _log4j2_properties_config }}.j2"
+    dest: "{{ config_dir|default(default_config_dir) }}/{{ _log4j2_properties_config }}"
     owner: "{{ elasticsearch_user }}"
     group: "{{ elasticsearch_user }}"
     mode: 0644

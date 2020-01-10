@@ -14,13 +14,13 @@ config_dir: "{{ install_dir }}/config"
 data_dir: "/var/data/elasticsearch"
 log_dir: "/var/log/elasticsearch"
 
-elasticsearch_config: elasticsearch.yml
+_elasticsearch_config: elasticsearch.yml
 config: {}
 
-jvm_options_config: jvm.options
+_jvm_options_config: jvm.options
 jvm_options: []
 
-log4j2_properties_config: log4j2.properties
+_log4j2_properties_config: log4j2.properties
 log4j2_properties: []
 
 extra_run_args: []
