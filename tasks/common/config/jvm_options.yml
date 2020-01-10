@@ -9,8 +9,8 @@
 
 - name: Copy jvm_options configuration in place
   template:
-    src: "{{ jvm_options_config }}.j2"
-    dest: "{{ config_dir|default(default_config_dir) }}/{{ jvm_options_config }}"
+    src: "{{ _jvm_options_config }}.j2"
+    dest: "{{ config_dir|default(default_config_dir) }}/{{ _jvm_options_config }}"
     owner: "{{ elasticsearch_user }}"
     group: "{{ elasticsearch_user }}"
     mode: 0644
