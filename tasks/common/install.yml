@@ -5,6 +5,8 @@
     name: "{{ elasticsearch_user }}"
     state: present
     system: true
+  tags:
+    - install
 
 - name: Create Elasticsearch user
   become: true
@@ -14,6 +16,8 @@
     group: "{{ elasticsearch_user }}"
     system: true
     create_home: true
+  tags:
+    - install
 
 - name: Create installation directory
   file:
@@ -23,6 +27,10 @@
     group: "{{ elasticsearch_user }}"
   become: true
   when: install_type == "archive"
+  tags:
+    - install
 
 - name: Install Elasticsearch based on install type
   include_tasks: "common/install/{{ install_type }}_install.yml"
+  tags:
+    - install

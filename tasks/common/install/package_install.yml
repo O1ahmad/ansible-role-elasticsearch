@@ -10,15 +10,26 @@
   register: package_tmp
   become: true
   when: install_type == "package"
+  tags:
+    - install
+    - package
 
 - name: Install Elasticsearch rpm
   yum:
     name: "{{ package_tmp.dest }}"
     state: present
   when: install_type == "package" and ansible_os_family|lower == "redhat"
+  tags:
+    - install
+    - package
+    - redhat
 
 - name: Install Elasticsearch debian package
   apt:
     deb: "{{ package_tmp.dest }}"
     state: present
   when: install_type == "package" and ansible_os_family|lower == "debian"
+  tags:
+    - install
+    - package
+    - debian
