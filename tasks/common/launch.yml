@@ -14,9 +14,13 @@
         Install:
           WantedBy: multi-user.target
   when: install_type == 'archive'
+  tags:
+    - launch
 
 - name: Start Elasticsearch service
   service:
     name: elasticsearch
     state: started
     enabled: "yes"
+  tags:
+    - launch
