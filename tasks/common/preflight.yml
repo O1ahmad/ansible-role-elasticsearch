@@ -11,19 +11,27 @@
   set_fact:
     install_dir: '/usr/share/elasticsearch'
   when: install_type == "package"
+  tags:
+    - preflight
 
 - name: Determine configuration directory
   set_fact:
     config_dir: '/etc/elasticsearch'
   when: install_type == "package"
+  tags:
+    - preflight
 
 - name: Determine logs directory
   set_fact:
     logs_dir: "{{ config['path.logs']|default(config.path.logs)|default(logs_dir) }}"
+  tags:
+    - preflight
 
 - name: Determine data directory
   set_fact:
     data_dir: "{{ config['path.data']|default(config.path.data)|default(data_dir) }}"
+  tags:
+    - preflight
 
 - name: Set unit [Service] configuration
   set_fact:
@@ -45,3 +53,5 @@
       meta: end_play
   when: perform_uninstall
   ignore_errors: true
+  tags:
+    - preflight

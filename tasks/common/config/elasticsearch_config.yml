@@ -6,6 +6,8 @@
     state: directory
     owner: "{{ elasticsearch_user }}"
     group: "{{ elasticsearch_user }}"
+  tags:
+    - config
 
 - name: Create Elasticsearch data directory
   become: true
@@ -14,6 +16,9 @@
     state: directory
     owner: "{{ elasticsearch_user }}"
     group: "{{ elasticsearch_user }}"
+  tags:
+    - config
+    - data
 
 - name: Create Elasticsearch log directory
   become: true
@@ -22,8 +27,11 @@
     state: directory
     owner: "{{ elasticsearch_user }}"
     group: "{{ elasticsearch_user }}"
+  tags:
+    - config
+    - log
 
-- name: Copy elasticsearch.yml configuration in place
+- name: Render elasticsearch.yml configuration
   become: true
   template:
     src: "{{ _elasticsearch_config }}.j2"
@@ -35,4 +43,6 @@
     conf: "{{ config }}"
   notify:
     - Restart service
-  when: config is defined and config is not none
+  when: config is defined and config.keys()|length > 0
+  tags:
+    - config

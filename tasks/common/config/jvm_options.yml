@@ -1,14 +1,5 @@
 ---
-- name: Ensure existence of Elasticsearch config directory
-  become: true
-  file:
-    path: "{{ config_dir|default(default_config_dir) }}"
-    state: directory
-    owner: "{{ elasticsearch_user }}"
-    group: "{{ elasticsearch_user }}"
-
-- name: Copy jvm_options configuration in place
-  become: true
+- name: Render jvm_options configuration
   template:
     src: "{{ _jvm_options_config }}.j2"
     dest: "{{ config_dir|default(default_config_dir) }}/{{ _jvm_options_config }}"
@@ -20,3 +11,6 @@
   notify:
     - Restart service
   when: jvm_options is defined and jvm_options is not none
+  tags:
+    - config
+    - jvm

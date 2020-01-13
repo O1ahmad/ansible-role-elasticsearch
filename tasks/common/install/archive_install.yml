@@ -10,6 +10,9 @@
     mode: '0775'
   register: archive_tmp
   when: install_type == "archive"
+  tags:
+    - install
+    - archive
 
 - name: Extract Elasticsearch archive
   become: true
@@ -25,3 +28,6 @@
       - '1'
     remote_src: true
   when: install_type == "archive"
+  tags:
+    - install
+    - archive
