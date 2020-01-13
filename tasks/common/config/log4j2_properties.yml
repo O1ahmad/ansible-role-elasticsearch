@@ -1,14 +1,15 @@
 ---
 - name: Ensure existence of Elasticsearch config directory
+  become: true
   file:
     path: "{{ config_dir|default(default_config_dir) }}"
     state: directory
     owner: "{{ elasticsearch_user }}"
     group: "{{ elasticsearch_user }}"
     mode: 0755
-  become: true
 
 - name: Copy log4j2.properties configuration in place
+  become: true
   template:
     src: "{{ _log4j2_properties_config }}.j2"
     dest: "{{ config_dir|default(default_config_dir) }}/{{ _log4j2_properties_config }}"
@@ -17,5 +18,6 @@
     mode: 0644
   vars:
     properties: "{{ log4j2_properties }}"
-  become: true
+  notify:
+    - Restart service
   when: log4j2_properties is defined and log4j2_properties|length > 0

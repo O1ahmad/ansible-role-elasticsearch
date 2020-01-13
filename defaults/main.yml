@@ -12,7 +12,7 @@ archive_checksum: https://artifacts.elastic.co/downloads/elasticsearch/elasticse
 
 config_dir: "{{ install_dir }}/config"
 data_dir: "/var/data/elasticsearch"
-log_dir: "/var/log/elasticsearch"
+logs_dir: "/var/log/elasticsearch"
 
 _elasticsearch_config: elasticsearch.yml
 config: {}
