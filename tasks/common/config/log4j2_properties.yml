@@ -1,5 +1,6 @@
 ---
 - name: Render log4j2.properties configuration
+  become: true
   template:
     src: "{{ _log4j2_properties_config }}.j2"
     dest: "{{ config_dir|default(default_config_dir) }}/{{ _log4j2_properties_config }}"
@@ -8,7 +9,8 @@
     mode: 0644
   vars:
     properties: "{{ log4j2_properties }}"
-  become: true
+  notify:
+    - Restart service
   when: log4j2_properties is defined and log4j2_properties|length > 0
   tags:
     - config

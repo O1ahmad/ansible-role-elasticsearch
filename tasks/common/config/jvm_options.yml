@@ -8,7 +8,8 @@
     mode: 0644
   vars:
     options: "{{ jvm_options }}"
-  become: true
+  notify:
+    - Restart service
   when: jvm_options is defined and jvm_options is not none
   tags:
     - config

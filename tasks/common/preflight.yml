@@ -1,4 +1,12 @@
 ---
+- name: Include OS and distribution specific variables.
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ ansible_distribution|lower }}.yml"
+        - "{{ ansible_os_family|lower }}.yml"
+      skip: true
+
 - name: Determine installation directory
   set_fact:
     install_dir: '/usr/share/elasticsearch'
@@ -33,5 +41,17 @@
       Group: "{{ elasticsearch_user }}"
       StandardOutput: journal
       StandardError: inherit
+
+- name: Check for uninstall signal
+  block:
+    - name: Broadcast uninstall signal
+      command: /bin/true
+      notify: Uninstall service
+      when: perform_uninstall
+
+    - name: End play following uninstallation
+      meta: end_play
+  when: perform_uninstall
+  ignore_errors: true
   tags:
     - preflight

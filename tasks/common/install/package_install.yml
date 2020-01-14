@@ -1,5 +1,6 @@
 ---
 - name: Download Elasticsearch package ({{ package_url }})
+  become: true
   get_url:
     url: "{{ package_url }}"
     dest: "/tmp/{{ package_url | urlsplit('path') | basename }}"
@@ -8,7 +9,6 @@
     group: "{{ elasticsearch_user }}"
     mode: '0775'
   register: package_tmp
-  become: true
   when: install_type == "package"
   tags:
     - install
