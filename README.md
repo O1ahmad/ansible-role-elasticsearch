@@ -13,7 +13,7 @@ Ansible Role :mag_right: :high_brightness: Elasticsearch
       - [Install](#install)
       - [Config](#config)
       - [Launch](#launch)
-      - [Uninstall](#launch)
+      - [Uninstall](#uninstall)
   - [Dependencies](#dependencies)
   - [Example Playbook](#example-playbook)
   - [License](#license)
