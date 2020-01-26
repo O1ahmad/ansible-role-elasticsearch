@@ -1,6 +1,7 @@
 ---
 - name: Download Elasticsearch package ({{ package_url }})
   become: true
+  when: install_type == "package"
   get_url:
     url: "{{ package_url }}"
     dest: "/tmp/{{ package_url | urlsplit('path') | basename }}"
@@ -9,26 +10,27 @@
     group: "{{ elasticsearch_user }}"
     mode: '0775'
   register: package_tmp
-  when: install_type == "package"
   tags:
     - install
     - package
 
 - name: Install Elasticsearch rpm
+  become: true
+  when: install_type == "package" and ansible_os_family|lower == "redhat"
   yum:
     name: "{{ package_tmp.dest }}"
     state: present
-  when: install_type == "package" and ansible_os_family|lower == "redhat"
   tags:
     - install
     - package
     - redhat
 
 - name: Install Elasticsearch debian package
+  become: true
+  when: install_type == "package" and ansible_os_family|lower == "debian"
   apt:
     deb: "{{ package_tmp.dest }}"
     state: present
-  when: install_type == "package" and ansible_os_family|lower == "debian"
   tags:
     - install
     - package

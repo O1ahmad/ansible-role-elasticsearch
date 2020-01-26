@@ -8,16 +8,16 @@
       skip: true
 
 - name: Determine installation directory
+  when: install_type == "package"
   set_fact:
     install_dir: '/usr/share/elasticsearch'
-  when: install_type == "package"
   tags:
     - preflight
 
 - name: Determine configuration directory
+  when: install_type == "package"
   set_fact:
     config_dir: '/etc/elasticsearch'
-  when: install_type == "package"
   tags:
     - preflight
 
@@ -47,11 +47,7 @@
     - name: Broadcast uninstall signal
       command: /bin/true
       notify: Uninstall service
-      when: perform_uninstall
 
     - name: End play following uninstallation
       meta: end_play
   when: perform_uninstall
-  ignore_errors: true
-  tags:
-    - preflight

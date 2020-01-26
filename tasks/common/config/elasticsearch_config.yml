@@ -33,6 +33,7 @@
 
 - name: Render elasticsearch.yml configuration
   become: true
+  when: config is defined and config.keys()|length > 0
   template:
     src: "{{ _elasticsearch_config }}.j2"
     dest: "{{ config_dir|default(default_config_dir) }}/{{ _elasticsearch_config }}"
@@ -43,6 +44,5 @@
     conf: "{{ config }}"
   notify:
     - Restart service
-  when: config is defined and config.keys()|length > 0
   tags:
     - config

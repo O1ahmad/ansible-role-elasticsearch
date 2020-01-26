@@ -1,11 +1,11 @@
 ---
 - name: Ensure existence of Elasticsearch config directory
+  become: true
   file:
     path: "{{ config_dir }}"
     state: directory
     owner: "{{ elasticsearch_user }}"
     group: "{{ elasticsearch_user }}"
-  become: true
   tags:
     - config
 
