@@ -18,6 +18,7 @@
     - launch
 
 - name: Start Elasticsearch service
+  become: true
   service:
     name: elasticsearch
     state: started

@@ -20,13 +20,13 @@
     - install
 
 - name: Create installation directory
+  become: true
+  when: install_type == "archive"
   file:
     path: "{{ install_dir }}"
     state: directory
     owner: "{{ elasticsearch_user }}"
     group: "{{ elasticsearch_user }}"
-  become: true
-  when: install_type == "archive"
   tags:
     - install
 

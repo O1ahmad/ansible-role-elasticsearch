@@ -1,6 +1,7 @@
 ---
 - name: Download Elasticsearch archive ({{ archive_url }})
   become: true
+  when: install_type == "archive"
   get_url:
     url: "{{ archive_url }}"
     dest: "/tmp/{{ archive_url | urlsplit('path') | basename }}"
@@ -9,13 +10,13 @@
     group: "{{ elasticsearch_user }}"
     mode: '0775'
   register: archive_tmp
-  when: install_type == "archive"
   tags:
     - install
     - archive
 
 - name: Extract Elasticsearch archive
   become: true
+  when: install_type == "archive"
   unarchive:
     src: "{{ archive_tmp.dest }}"
     dest: "{{ install_dir }}"
@@ -27,7 +28,6 @@
       - --strip-components
       - '1'
     remote_src: true
-  when: install_type == "archive"
   tags:
     - install
     - archive
