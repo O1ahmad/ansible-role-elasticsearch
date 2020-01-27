@@ -5,6 +5,7 @@ Ansible Role :mag_right: :high_brightness: Elasticsearch
 [![Galaxy Role](https://img.shields.io/ansible/role/45171.svg)](https://galaxy.ansible.com/0x0I/elasticsearch)
 [![Downloads](https://img.shields.io/ansible/role/d/45171.svg)](https://galaxy.ansible.com/0x0I/elasticsearch)
 [![Build Status](https://travis-ci.org/0x0I/ansible-role-elasticsearch.svg?branch=master)](https://travis-ci.org/0x0I/ansible-role-elasticsearch)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Table of Contents**
   - [Supported Platforms](#supported-platforms)
@@ -253,7 +254,7 @@ enable verbose logging for cluster debugging/troubleshooting:
 License
 -------
 
-Apache, BSD, MIT
+MIT
 
 Author Information
 ------------------
