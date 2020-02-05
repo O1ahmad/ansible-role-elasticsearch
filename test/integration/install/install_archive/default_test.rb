@@ -1,4 +1,4 @@
-title "Elasticsearch service installation suite"
+title "Elasticsearch archive installation integration tests"
 
 describe user('elasticsearch') do
   it { should exist }

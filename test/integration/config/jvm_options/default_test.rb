@@ -1,4 +1,4 @@
-title "Elasticsearch jvm.options configuration test suite"
+title "Elasticsearch JVM configuration integration tests"
 
 describe file('/opt/elasticsearch/config/jvm.options') do
   it { should exist }
