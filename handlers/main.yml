@@ -5,6 +5,7 @@
     name: elasticsearch
     state: restarted
   listen: Restart service
+  ignore_errors: true
 
 - name: Stop Elasticsearch systemd service
   become: true

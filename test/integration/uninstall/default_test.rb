@@ -1,4 +1,4 @@
-title "Elasticsearch service launch test suite"
+title "Elasticsearch uninstallation integration tests"
 
 describe file('/etc/systemd/system/elasticsearch.service') do
   it { should_not exist }

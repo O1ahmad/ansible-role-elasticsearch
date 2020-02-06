@@ -1,4 +1,4 @@
-title "Elasticsearch elasticsearch.yml configuration test suite"
+title "Elasticsearch service configuration integration tests"
 
 describe file('/opt/elasticsearch/config/elasticsearch.yml') do
   it { should exist }
