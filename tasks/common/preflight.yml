@@ -22,12 +22,14 @@
     - preflight
 
 - name: Determine logs directory
+  when: config.path is defined or config['path.logs'] is defined
   set_fact:
     logs_dir: "{{ config['path.logs']|default(config.path.logs)|default(logs_dir) }}"
   tags:
     - preflight
 
 - name: Determine data directory
+  when: config.path is defined or config['path.data'] is defined
   set_fact:
     data_dir: "{{ config['path.data']|default(config.path.data)|default(data_dir) }}"
   tags:
@@ -49,10 +51,9 @@
       command: /bin/true
       notify:
         - Uninstall service
-  rescue:
+  always:
     - name: Ensure flush of handlers
       meta: flush_handlers
-  always:
     - name: End play following uninstallation
       meta: end_play
   tags:

@@ -5,7 +5,7 @@
   get_url:
     url: "{{ archive_url }}"
     dest: "/tmp/{{ archive_url | urlsplit('path') | basename }}"
-    checksum: "{{ checksum_format }}:{{ archive_checksum }}"
+    checksum: "{{ (archive_checksum|length > 0) | ternary(checksum_format+':'+archive_checksum, '') }}"
     owner: "{{ elasticsearch_user }}"
     group: "{{ elasticsearch_user }}"
     mode: '0775'
