@@ -1,5 +1,6 @@
 ---
 - name: Setup elasticsearch systemd unit
+  when: install_type == 'archive'
   include_role:
     name: 0x0i.systemd
   vars:
@@ -13,7 +14,6 @@
         Service: "{{ _default_service_unit | combine(custom_unit_properties) }}"
         Install:
           WantedBy: multi-user.target
-  when: install_type == 'archive'
   tags:
     - launch
 

@@ -5,7 +5,7 @@
   get_url:
     url: "{{ package_url }}"
     dest: "/tmp/{{ package_url | urlsplit('path') | basename }}"
-    checksum: "{{ checksum_format }}:{{ package_checksum }}"
+    checksum: "{{ (package_checksum|length > 0) | ternary(checksum_format+':'+package_checksum, '') }}"
     owner: "{{ elasticsearch_user }}"
     group: "{{ elasticsearch_user }}"
     mode: '0775'
