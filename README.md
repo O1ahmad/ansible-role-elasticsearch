@@ -3,9 +3,10 @@
 Ansible Role :mag_right: :high_brightness: Elasticsearch
 =========
 [![Galaxy Role](https://img.shields.io/ansible/role/45171.svg)](https://galaxy.ansible.com/0x0I/elasticsearch)
-[![Downloads](https://img.shields.io/ansible/role/d/45171.svg)](https://galaxy.ansible.com/0x0I/elasticsearch)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/0x0I/ansible-role-elasticsearch?color=yellow)
+[![Downloads](https://img.shields.io/ansible/role/d/45171.svg?color=lightgrey)](https://galaxy.ansible.com/0x0I/elasticsearch)
 [![Build Status](https://travis-ci.org/0x0I/ansible-role-elasticsearch.svg?branch=master)](https://travis-ci.org/0x0I/ansible-role-elasticsearch)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 
 **Table of Contents**
   - [Supported Platforms](#supported-platforms)
@@ -56,20 +57,20 @@ _The following variables can be customized to control various aspects of this in
   - Note that the installation directory is determined by the package management system and currently defaults to `/usr/share` for both distros. Attempts to set and execute a package installation on other Linux distros will result in failure due to lack of support.
 - **archive**: compatible with both **tar and zip** formats, archived installation binaries can be obtained from local and remote compressed archives either from the official [download/releases](https://www.elastic.co/downloads/elasticsearch) site or those generated from development/custom sources.
 
-`default_install_dir: </path/to/installation/dir>` (**default**: `/opt/elasticsearch`)
-- path on target host where the `elasticsearch` binaries should be extracted to. *ONLY* relevant when `install_type` is set to **archive**.
+`install_dir: </path/to/installation/dir>` (**default**: `/opt/elasticsearch`)
+- path on target host where the `elasticsearch` binaries should be extracted to.
 
 `archive_url: <path-or-url-to-archive>` (**default**: see `defaults/main.yml`)
-- address of a compressed **tar or zip** archive containing `elasticsearch` binaries. This method technically supports installation of any available version of `elasticsearch`. Links to official versions can be found [here](https://www.elastic.co/downloads/past-releases#elasticsearch). *ONLY* relevant when `install_type` is set to **archive**
+- address of a compressed **tar or zip** archive containing `elasticsearch` binaries. This method technically supports installation of any available version of `elasticsearch`. Links to official versions can be found [here](https://www.elastic.co/downloads/past-releases#elasticsearch).
 
 `archive_checksum: <path-or-url-to-checksum>` (**default**: see `defaults/main.yml`)
-- address of a checksum file for verifying the data integrity of the specified archive. While recommended and generally considered a best practice, specifying a checksum is *not required* and can be disabled by providing an empty string (`''`) for its value. *ONLY* relevant when `install_type` is set to **archive**.
+- address of a checksum file for verifying the data integrity of the specified archive. While recommended and generally considered a best practice, specifying a checksum is *not required* and can be disabled by providing an empty string (`''`) for its value.
 
 `package_url: <path-or-url-to-package>` (**default**: see `defaults/main.yml`)
-- address of a **Debian or RPM** package containing `elasticsearch` source and binaries. Note that the installation layout is determined by the package management systems. Consult Elastic's official documentation for both [RPM](https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html) and [Debian](https://www.elastic.co/guide/en/elasticsearch/reference/current/deb.html) installation details. *ONLY* relevant when `install_type` is set to **package**
+- address of a **Debian or RPM** package containing `elasticsearch` source and binaries. Note that the installation layout is determined by the package management systems. Consult Elastic's official documentation for both [RPM](https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html) and [Debian](https://www.elastic.co/guide/en/elasticsearch/reference/current/deb.html) installation details.
 
 `package_checksum: <path-or-url-to-checksum>` (**default**: see `vars/...`)
-- address of a checksum file for verifying the data integrity of the specified package. While recommended and generally considered a best practice, specifying a checksum is *not required* and can be disabled by providing an empty string (`''`) for its value. *ONLY* relevant when `install_type` is set to **package**.
+- address of a checksum file for verifying the data integrity of the specified package. While recommended and generally considered a best practice, specifying a checksum is *not required* and can be disabled by providing an empty string (`''`) for its value.
 
 `checksum_format: <string>` (**default**: see `sha512`)
 - hash algorithm used for file verification associated with the specified archive or package checksum. Reference [here](https://en.wikipedia.org/wiki/Cryptographic_hash_function) for more information about checksums/cryptographic hashes.
@@ -87,7 +88,7 @@ For additional details and to get an idea how each config should look, reference
 
 _The following variables can be customized to manage the location and content of these configuration files:_
 
-`default_config_dir: </path/to/configuration/dir>` (**default**: `/opt/elasticsearch/config`)
+`config_dir: </path/to/configuration/dir>` (**default**: `/opt/elasticsearch/config`)
 - path on target host where the aforementioned configuration files should be stored
 
 `managed_configs: <list of configs to manage>` (**default**: see `defaults/main.yml`)
@@ -122,10 +123,10 @@ While you should rarely need to change Java Virtual Machine (JVM) options; there
 
   ```yaml
   jvm_options:
-      - comment: set the min and max JVM heap size (to the same value)
-        arguments:
-          - '-Xms1g'
-          - '-Xmx1g'
+    - comment: set the min and max JVM heap size (to the same value)
+      arguments:
+        - '-Xms1g'
+        - '-Xmx1g'
   ```
 
   A list of available arguments can be found [here](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html).
@@ -140,18 +141,18 @@ Each line to be rendered in the file can be expressed as an entry within a list 
 
   ```yaml
   log4j2_properties:
-      - comment: log action execution errors for easier debugging
-        settings:
-          - logger.action.name: org.elasticsearch.action
-            logger.action.level: debug
+    - comment: log action execution errors for easier debugging
+      settings:
+        - logger.action.name: org.elasticsearch.action
+          logger.action.level: debug
   ```
 
 Reference Elastic's official [logging](https://www.elastic.co/guide/en/elasticsearch/reference/current/logging.html) documentation for more details regarding a list of available configurations and [examples](https://github.com/elastic/elasticsearch/blob/master/qa/logging-config/custom-log4j2.properties) of how this configuration should look.
 
-`default_data_dir: </path/to/data/dir>` (**default**: `/var/data/elasticsearch`)
+`data_dir: </path/to/data/dir>` (**default**: `/var/data/elasticsearch`)
 - path on target host where data generated by the Elasticsearch service (e.g. indexed records) should be stored
 
-`default_log_dir: </path/to/log/dir>` (**default**: `/var/log/elasticsearch`)
+`logs_dir: </path/to/log/dir>` (**default**: `/var/log/elasticsearch`)
 - path on target host where logs generated by the Elasticsearch service should be stored
 
 #### Launch
@@ -227,7 +228,7 @@ provision hybrid master/data node with customized data and logging directories:
             logs: /mnt/logs/elasticsearch
 ```
 
-enable verbose logging for cluster debugging/troubleshooting:
+adjust JVM heap settings and enable verbose logging for cluster debugging/troubleshooting:
 ```
 - hosts: elasticsearch
   roles:
@@ -246,9 +247,6 @@ enable verbose logging for cluster debugging/troubleshooting:
                 logger.action.level: debug
         extra_run_args:
           - '--verbose'
-        custom_unit_properties:
-          StandardOutput: journal
-          StandardError: inherit
 ```
 
 License
