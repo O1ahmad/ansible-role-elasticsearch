@@ -196,14 +196,14 @@ default example:
 ```
 - hosts: all
   roles:
-  - role: 0xOI.elasticsearch
+  - role: 0x0I.elasticsearch
 ```
 
 install specific version of OS distribution native package with pre-defined defaults:
 ```
 - hosts: legacy-ES-cluster
   roles:
-  - role: 0xOI.elasticsearch
+  - role: 0x0I.elasticsearch
     vars:
         managed_configs: []
         install_type: package
@@ -216,7 +216,7 @@ provision hybrid master/data node with customized data and logging directories:
 ```
 - hosts: test-elasticsearch
   roles:
-    - role: 0xOI.elasticsearch
+    - role: 0x0I.elasticsearch
       vars:
         managed_configs: ['elasticsearch_config']
         config:
@@ -232,7 +232,7 @@ adjust JVM heap settings and enable verbose logging for cluster debugging/troubl
 ```
 - hosts: elasticsearch
   roles:
-    - role: 0xOI.elasticsearch
+    - role: 0x0I.elasticsearch
       vars:
         managed_configs: ['jvm_options', 'log4j2_properties']
         jvm_options:
