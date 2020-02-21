@@ -1,3 +1,4 @@
+<p><img src="https://code.benco.io/icon-collection/logos/ansible.svg" alt="ansible logo" title="ansible" align="left" height="60" /></p>
 <p><img src="https://seeklogo.com/images/E/elasticsearch-logo-C75C4578EC-seeklogo.com.png" alt="elasticsearch logo" title="elasticsearch" align="right" height="60" /></p>
 
 Ansible Role :mag_right: :high_brightness: Elasticsearch
