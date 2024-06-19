@@ -3,10 +3,8 @@
 
 Ansible Role :mag_right: :high_brightness: Elasticsearch
 =========
-[![Galaxy Role](https://img.shields.io/ansible/role/45171.svg)](https://galaxy.ansible.com/0x0I/elasticsearch)
+[![Galaxy Role](https://img.shields.io/ansible/role/d/0x0i/elasticsearch)](https://galaxy.ansible.com/0x0I/elasticsearch)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/0x0I/ansible-role-elasticsearch?color=yellow)
-[![Downloads](https://img.shields.io/ansible/role/d/45171.svg?color=lightgrey)](https://galaxy.ansible.com/0x0I/elasticsearch)
-[![Build Status](https://travis-ci.org/0x0I/ansible-role-elasticsearch.svg?branch=master)](https://travis-ci.org/0x0I/ansible-role-elasticsearch)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 
 **Table of Contents**
